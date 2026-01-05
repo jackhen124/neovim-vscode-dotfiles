@@ -10,7 +10,7 @@ This is intended to be used with the [VSCode Neovim](vscode:extension/asvetliako
 - [VSCode Neovim](vscode:extension/asvetliakov.vscode-neovim)
 
 # Automatic Update Scripts
-### Dependencies
+### Dependencies to run scripts
 - [python](https://www.python.org/downloads/)
 
 ### configure file paths
