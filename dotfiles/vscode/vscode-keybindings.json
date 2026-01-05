@@ -1,0 +1,133 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+alt+f",
+    "command": "-list.find.replInputFocus",
+    "when": "view == 'workbench.panel.repl.view'"
+  },
+  /* {
+    "key": "ctrl+alt+f",
+    "command": "-repl.action.find",
+    "when": "inDebugRepl || inDebugRepl && focusedView == 'workbench.panel.repl.view'"
+  },
+  {
+    "key": "ctrl+alt+f",
+    "command": "-list.find",
+    "when": "listFocus && listSupportsFind"
+  }, */
+  {
+    "key": "ctrl+alt+f",
+    "command": "editor.action.sortLinesAscending"
+  },
+  {
+    "key": "shift+alt+m",
+    "command": "eslint.executeAutofix"
+  },
+  // From Melkey https://www.youtube.com/watch?v=GST8we5uABo
+  // NAVIGATION
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+w",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus"
+  },
+  // FILE TREE
+  {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "ctrl+e"
+  },
+  {
+    "command": "workbench.files.action.focusFilesExplorer",
+    "key": "ctrl+e",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "n",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+n",
+    "command": "explorer.newFolder",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "command": "renameFile",
+    "key": "r",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "command": "deleteFile",
+    "key": "d",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // End Melkey keybindings
+
+  // My custom bindings designed to be used with neovim
+  // file explorer
+  {
+    "key": "h",
+    "command": "list.collapse",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "j",
+    "command": "list.focusDown",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "list.focusUp",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "l",
+    "command": "list.expand",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+  "key": "c",
+  "command": "workbench.action.chat.attachFile",
+  "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "`",
+    "command": "openInIntegratedTerminal",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // Terminal
+
+  // Tabs
+
+  {
+    "key": "ctrl+shift+w",
+    "command": "workbench.action.closeOtherEditors",
+    "when": "editorTextFocus && !terminalFocus && !filesExplorerFocus"
+  },
+  // Other
+  { "key": "ctrl+shift+w", "command": "-workbench.action.closeWindow" },
+
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorTextFocus && !terminalFocus && !filesExplorerFocus"
+  },
+  {
+    "key": "ctrl+alt+shift+w",
+    "command": "workbench.action.closeWindow"
+}
+]
