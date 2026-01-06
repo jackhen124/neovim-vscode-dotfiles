@@ -21,10 +21,13 @@ dotfiles_vscode_path = dotfiles_path / 'vscode'
 dotfiles_vscode_keybindings_path = dotfiles_vscode_path / 'keybindings.json'
 dotfiles_vscode_settings_path = dotfiles_vscode_path / 'settings.json'
 
+
 dotfiles_paths = {
+    VSCODE_SETTINGS_CONTAINER_KEY: dotfiles_vscode_path,
     VSCODE_KEYBINDINGS_KEY: dotfiles_vscode_keybindings_path,
     VSCODE_SETTINGS_KEY: dotfiles_vscode_settings_path,
-    NEOVIM_NVIM_CONTAINER_KEY: dotfiles_path
+    NEOVIM_NVIM_CONTAINER_KEY: dotfiles_path,
+    NEOVIM_NVIM_KEY: dotfiles_path / 'nvim'
 }
 
 # User paths
