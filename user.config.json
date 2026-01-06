@@ -1,4 +1,4 @@
 {
-  "vscode-config-local-path": "~/AppData/Roaming/Code/User/",
-  "neovim-config-local-path": "~/AppData/Local/"
+  "vscode_settings_container_path": "~/AppData/Roaming/Code/User/",
+  "neovim_nvim_container_path": "~/AppData/Local/"
 }

@@ -5,6 +5,30 @@ from pathlib import Path
 
 root_dir = Path(__file__).parent
 
+# "dotfiles" is used to refer to the copied config files stored in this repo
+# "user" is used to refer to the working config files on the user's machine
+# Each key represents a path that is in common between the dotfiles and user configs
+VSCODE_SETTINGS_CONTAINER_KEY = 'vscode_settings_container_path'
+VSCODE_KEYBINDINGS_KEY = 'vscode_keybindings'
+VSCODE_SETTINGS_KEY = 'vscode_settings'
+# This key represents the folder that contains the 'nvim' folder
+NEOVIM_NVIM_CONTAINER_KEY = 'neovim_nvim_container_path'
+NEOVIM_NVIM_KEY = 'neovim_nvim_path'
+
+
+dotfiles_path = root_dir / 'dotfiles'
+dotfiles_vscode_path = dotfiles_path / 'vscode'
+dotfiles_vscode_keybindings_path = dotfiles_vscode_path / 'keybindings.json'
+dotfiles_vscode_settings_path = dotfiles_vscode_path / 'settings.json'
+
+dotfiles_paths = {
+    VSCODE_KEYBINDINGS_KEY: dotfiles_vscode_keybindings_path,
+    VSCODE_SETTINGS_KEY: dotfiles_vscode_settings_path,
+    NEOVIM_NVIM_CONTAINER_KEY: dotfiles_path
+}
+
+# User paths
+
 
 def assert_path_exists(path, description):
     """Check if a path exists, exit with error if it doesn't."""
@@ -23,52 +47,30 @@ def load_user_config():
 user_config = load_user_config()
 
 
-def get_vscode_paths():
-    """Get and validate all VSCode related paths."""
-    dotfiles_path = root_dir / 'dotfiles'
-    dotfiles_vscode_path = dotfiles_path / 'vscode'
+def get_value_from_user_config(key):
+    """Use key to get and validate the corresponding path from user config."""
+    user_config_path = user_config[key]
+    user_config_dir = Path(user_config_path).expanduser()
 
-    # Expand user paths
-    user_vscode_path = user_config['vscode-config-local-path']
-    user_vscode_dir = Path(user_vscode_path).expanduser()
-    dotfiles_vscode_dir = dotfiles_vscode_path.expanduser()
+    assert_path_exists(user_config_dir, f"user {key} directory")
+    return user_config_dir
 
-    # Define file paths
-    dotfiles_vscode_settings_path = dotfiles_vscode_path / 'vscode-settings.json'
-    dotfiles_vscode_keybindings_path = dotfiles_vscode_path / 'vscode-keybindings.json'
-    user_vscode_settings = user_vscode_dir / 'settings.json'
-    user_vscode_keybindings = user_vscode_dir / 'keybindings.json'
 
-    # Validate paths exist
-    assert_path_exists(dotfiles_vscode_dir, "dotfiles vscode directory")
-    assert_path_exists(dotfiles_vscode_settings_path,
-                       "dotfiles vscode settings.json")
-    assert_path_exists(dotfiles_vscode_keybindings_path,
-                       "dotfiles vscode keybindings.json")
-    assert_path_exists(user_vscode_settings, "user vscode settings.json")
-    assert_path_exists(user_vscode_keybindings, "user vscode keybindings.json")
+def get_user_paths():
+    """Get and validate all user config paths."""
+    user_vscode_path = get_value_from_user_config(
+        VSCODE_SETTINGS_CONTAINER_KEY)
 
-    return {
-        'dotfiles_vscode_dir': dotfiles_vscode_dir,
-        'dotfiles_vscode_settings_path': dotfiles_vscode_settings_path,
-        'dotfiles_vscode_keybindings_path': dotfiles_vscode_keybindings_path,
-        'user_vscode_dir': user_vscode_dir,
-        'user_vscode_settings': user_vscode_settings,
-        'user_vscode_keybindings': user_vscode_keybindings,
+    user_nvim_container = get_value_from_user_config(
+        NEOVIM_NVIM_CONTAINER_KEY)
+    user_paths = {
+        VSCODE_KEYBINDINGS_KEY: user_vscode_path / 'keybindings.json',
+        VSCODE_SETTINGS_KEY: user_vscode_path / 'settings.json',
+        NEOVIM_NVIM_CONTAINER_KEY: user_nvim_container,
+        NEOVIM_NVIM_KEY: user_nvim_container / 'nvim'
     }
 
+    for key, path in user_paths.items():
+        assert_path_exists(path, f"user {key} path")
 
-def get_user_neovim_path():
-    """Get and validate the user's Neovim config path."""
-    user_neovim_path = user_config['neovim-config-local-path']
-    user_neovim_dir = Path(user_neovim_path).expanduser() / 'nvim'
-    assert_path_exists(user_neovim_dir, "user neovim directory")
-    return user_neovim_dir
-
-
-def get_dotfiles_neovim_path():
-    """Get and validate the dotfiles Neovim config path."""
-    dotfiles_neovim_path = root_dir / 'dotfiles' / 'neovim'
-    dotfiles_neovim_dir = dotfiles_neovim_path.expanduser()
-    assert_path_exists(dotfiles_neovim_dir, "dotfiles neovim directory")
-    return dotfiles_neovim_dir
+    return user_paths
