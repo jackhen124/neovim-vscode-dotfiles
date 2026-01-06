@@ -5,6 +5,7 @@ from file_helper import *
 
 print("Updating this repo from from Local files config...")
 
+dotfiles_paths = get_dotfiles_paths()
 
 def initialize_dotfiles_directory():
     """Create empty dotfiles directory structure."""
@@ -16,8 +17,7 @@ def initialize_dotfiles_directory():
 
 
 initialize_dotfiles_directory()
-user_paths = get_user_paths()
-
+user_paths = validate_and_get_user_paths()
 # Copy VSCode files
 shutil.copy2(user_paths[VSCODE_SETTINGS_KEY],
              dotfiles_paths[VSCODE_SETTINGS_KEY])

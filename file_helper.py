@@ -7,36 +7,46 @@ root_dir = Path(__file__).parent
 
 # "dotfiles" is used to refer to the copied config files stored in this repo
 # "user" is used to refer to the working config files on the user's machine
-# Each key represents a path that is in common between the dotfiles and user configs
+# Each key represents a path that exists for both dotfiles and user
 VSCODE_SETTINGS_CONTAINER_KEY = 'vscode_settings_container_path'
 VSCODE_KEYBINDINGS_KEY = 'vscode_keybindings'
 VSCODE_SETTINGS_KEY = 'vscode_settings'
-# This key represents the folder that contains the 'nvim' folder
+
 NEOVIM_NVIM_CONTAINER_KEY = 'neovim_nvim_container_path'
 NEOVIM_NVIM_KEY = 'neovim_nvim_path'
 
 
 dotfiles_path = root_dir / 'dotfiles'
-dotfiles_vscode_path = dotfiles_path / 'vscode'
-dotfiles_vscode_keybindings_path = dotfiles_vscode_path / 'keybindings.json'
-dotfiles_vscode_settings_path = dotfiles_vscode_path / 'settings.json'
-
-
-dotfiles_paths = {
-    VSCODE_SETTINGS_CONTAINER_KEY: dotfiles_vscode_path,
-    VSCODE_KEYBINDINGS_KEY: dotfiles_vscode_keybindings_path,
-    VSCODE_SETTINGS_KEY: dotfiles_vscode_settings_path,
-    NEOVIM_NVIM_CONTAINER_KEY: dotfiles_path,
-    NEOVIM_NVIM_KEY: dotfiles_path / 'nvim'
-}
-
-# User paths
 
 
 def assert_path_exists(path, description):
     """Check if a path exists, exit with error if it doesn't."""
     if not path.exists():
         sys.exit(f"Error: {description} not found at {path}")
+
+
+def get_dotfiles_paths():
+    """Get all dotfiles paths."""
+    dotfiles_vscode_path = dotfiles_path / 'vscode'
+    dotfiles_vscode_keybindings_path = dotfiles_vscode_path / 'keybindings.json'
+    dotfiles_vscode_settings_path = dotfiles_vscode_path / 'settings.json'
+    dotfiles_paths = {
+        VSCODE_SETTINGS_CONTAINER_KEY: dotfiles_vscode_path,
+        VSCODE_KEYBINDINGS_KEY: dotfiles_vscode_keybindings_path,
+        VSCODE_SETTINGS_KEY: dotfiles_vscode_settings_path,
+        NEOVIM_NVIM_CONTAINER_KEY: dotfiles_path,
+        NEOVIM_NVIM_KEY: dotfiles_path / 'nvim'
+    }
+    return dotfiles_paths
+
+
+def assert_dotfiles_paths_exist():
+    """Validate that all dotfiles paths exist."""
+    dotfiles_paths = get_dotfiles_paths()
+    for key, path in dotfiles_paths.items():
+        assert_path_exists(path, f"dotfiles {key} path")
+
+# User paths
 
 
 def load_user_config():
@@ -59,7 +69,7 @@ def get_value_from_user_config(key):
     return user_config_dir
 
 
-def get_user_paths():
+def validate_and_get_user_paths():
     """Get and validate all user config paths."""
     user_vscode_path = get_value_from_user_config(
         VSCODE_SETTINGS_CONTAINER_KEY)
