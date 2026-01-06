@@ -5,7 +5,7 @@ from pathlib import Path
 
 root_dir = Path(__file__).parent
 
-# "dotfiles" is used to refer to the copied config files stored in this repo
+# "dotfiles" is used to refer to the config files stored in this repo
 # "user" is used to refer to the working config files on the user's machine
 # Each key represents a path that exists for both dotfiles and user
 VSCODE_SETTINGS_CONTAINER_KEY = 'vscode_settings_container_path'
