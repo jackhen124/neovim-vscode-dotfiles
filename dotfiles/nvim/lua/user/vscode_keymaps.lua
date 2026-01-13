@@ -48,3 +48,8 @@ keymap({ "n", "v" }, "<leader>t", "<cmd>lua require('vscode').action('workbench.
 
 -- AI Chat
 keymap({ "n", "v" }, "<leader>i", "<cmd>lua require('vscode').action('github.copilot.openChatPanel')<CR>")
+
+-- navigation
+keymap({ "n", "v" }, "<leader>gr", "<cmd>lua require('vscode').action('editor.action.goToReferences')<CR>")
+keymap({ "n", "v" }, "<leader>gi", "<cmd>lua require('vscode').action('editor.action.goToImplementation')<CR>")
+keymap({ "n", "v" }, "<leader>gt", "<cmd>lua require('vscode').action('editor.action.goToTypeDefinition')<CR>")
